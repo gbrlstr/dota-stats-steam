@@ -16,22 +16,36 @@ function getSteamID() {
 }
 
 const steamID = getSteamID();
-const steamID3 = BigInt(steamID) - BigInt("76561197960265728");
-chrome.runtime.sendMessage({
-  action: "fetchDotaStats",
-  steamID: steamID3.toString(),
-});
+
+if (steamID) {
+  const steamID3 = BigInt(steamID) - BigInt("76561197960265728");
+  chrome.runtime.sendMessage({
+    action: "fetchDotaStats",
+    steamID: steamID3.toString(),
+  });
+} else {
+  console.log("No Steam ID found on this page");
+}
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  // Handle ping to check if content script is active
+  if (message.action === "ping") {
+    sendResponse({ ready: true });
+    return true;
+  }
+  
   if (
     message.data &&
     message.action === "updateDotaStats" &&
     message.data.winCount > 0
   ) {
+    console.log("Received Dota stats data, updating DOM");
     updateDotaStatsDOM(message.data);
+    // No response needed since background script doesn't expect one
   }
   if (message.data && message.action === "logData") {
     // console.log("DATA LOG", message.data);
+    // No response needed for log messages
   }
 });
 
@@ -112,7 +126,7 @@ function updateDotaStatsDOM(data) {
               }
               ${
                 medalImage
-                  ? ` <a href="https://stratz.com/players/${steamID3}">
+                  ? ` <a href="https://stratz.com/players/${steamID}">
                         <img src="${medalImage}">
                       </a>
                 `
@@ -128,7 +142,7 @@ function updateDotaStatsDOM(data) {
 					  </div>
 					<div class="favoritegroup_content dota_stats_favoritegroup_content">
 							<div class="favoritegroup_namerow ellipsis dota_stats_favoritegroup_namerow">
-								<a class="favoritegroup_name" href="https://stratz.com/players/${steamID3}">
+								<a class="favoritegroup_name" href="https://stratz.com/players/${steamID}">
                 ${playerName} 
                 ${proSVG} 
                 ${anonymousSVG}

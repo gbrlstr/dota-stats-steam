@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "Dota Stats Steam Profile",
   "description": "Dota Stats displays information from Dota 2 on Steam profiles using the Stratz API",
   "author": "Gabriel Carlos",
-  "homepage_url": "https://github.com/GabrielCSTR/dota-stats-steam",
+  "homepage_url": "https://github.com/gbrlstr/dota-stats-steam",
   "permissions": ["activeTab", "storage"],
   "action": {
     "default_icon": "images/icon.png",
