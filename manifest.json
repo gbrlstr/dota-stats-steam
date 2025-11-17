@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "name": "Dota Stats Steam Profile",
   "description": "Dota Stats displays information from Dota 2 on Steam profiles using the Stratz API",
   "author": "Gabriel Carlos",
