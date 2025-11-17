@@ -15,7 +15,7 @@ function getSteamID() {
   return null;
 }
 
-const steamID = getSteamID();
+let steamID = getSteamID();
 
 if (steamID) {
   const steamID3 = BigInt(steamID) - BigInt("76561197960265728");
@@ -23,6 +23,7 @@ if (steamID) {
     action: "fetchDotaStats",
     steamID: steamID3.toString(),
   });
+  steamID = steamID3.toString();
 } else {
   console.log("No Steam ID found on this page");
 }
@@ -126,7 +127,7 @@ function updateDotaStatsDOM(data) {
               }
               ${
                 medalImage
-                  ? ` <a href="https://stratz.com/players/${steamID}">
+                  ? ` <a target="_blank" href="https://stratz.com/players/${steamID}">
                         <img src="${medalImage}">
                       </a>
                 `
@@ -142,7 +143,7 @@ function updateDotaStatsDOM(data) {
 					  </div>
 					<div class="favoritegroup_content dota_stats_favoritegroup_content">
 							<div class="favoritegroup_namerow ellipsis dota_stats_favoritegroup_namerow">
-								<a class="favoritegroup_name" href="https://stratz.com/players/${steamID}">
+								<a class="favoritegroup_name" target="_blank" href="https://stratz.com/players/${steamID}">
                 ${playerName} 
                 ${proSVG} 
                 ${anonymousSVG}
